@@ -1,0 +1,2469 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "content": "Normalizes Apollo's response shape across all search branches, dedupes by domain, and flattens each org into a clean row. Emits an error item (with raw_response / available_keys) if nothing came back.",
+        "height": 128,
+        "width": 192
+      },
+      "id": "69439e24-356b-4361-8dbe-9d62e4655a15",
+      "name": "Sticky Note11",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -16464,
+        416
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Adds https://, strips trailing slash. Companies with no website but a LinkedIn URL are flagged and kept (routed through Has Website?); companies with neither are dropped.",
+        "height": 112,
+        "width": 192
+      },
+      "id": "0ff4fbfc-cdfc-42f2-bab3-f953db425216",
+      "name": "Sticky Note12",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -16016,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "content": "For live sites: pulls title/meta/OG tags, H1/H2s, JSON-LD schema, nav-based signals (careers/pricing/blog), embedded tool fingerprints (Intercom, HubSpot, etc.), and runs healthcare + buying-signal keyword scans on CLEANED TEXT (not raw HTML).",
+        "height": 160,
+        "width": 160
+      },
+      "id": "ccbf3f44-dac3-4662-ad97-46ad5895c4ae",
+      "name": "Sticky Note13",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -14960,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Extracts the top-ranked person and stashes all found people as _raw_people.",
+        "height": 80,
+        "width": 192
+      },
+      "id": "5b6f3329-65d7-4cf1-ad24-621682e1624c",
+      "name": "Sticky Note14",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -14528,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Reshapes the top person into the fields Apollo's bulk_match endpoint expects.",
+        "height": 128,
+        "width": 176
+      },
+      "id": "6fb189f4-ae81-4344-a6b8-2239bff5a04a",
+      "name": "Sticky Note15",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -14064,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "content": "If no decision maker was found, passes an empty person object through instead.",
+        "height": 96,
+        "width": 150
+      },
+      "id": "1819d90d-f807-42cf-b705-ad3650235ed9",
+      "name": "Sticky Note16",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -13872,
+        576
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Merges enriched person data (with fallback to the original search result) onto the company record and builds the all_contacts list.",
+        "height": 112,
+        "width": 176
+      },
+      "id": "a62eddb3-ec62-4d0a-84fc-573015838cf3",
+      "name": "Sticky Note17",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -13632,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Strips markdown fences, extracts/parses the JSON, falls back to neutral defaults if parsing fails.",
+        "height": 96,
+        "width": 192
+      },
+      "id": "05f82ab3-6d93-4ffc-99a4-df88172b3ea2",
+      "name": "Sticky Note18",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -13072,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Computes a weighted 0-100 lead score from company size, tech signals, growth/automation scores, buying-signal count, contact completeness, funding, and healthcare fit; loops back to Loop Over Items1 for the next company.",
+        "height": 112,
+        "width": 240
+      },
+      "id": "93f519a4-7f16-4201-b361-73e1acc73814",
+      "name": "Sticky Note19",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -12848,
+        528
+      ]
+    },
+    {
+      "parameters": {
+        "content": "After the loop: drops skipped/scoreless leads and sorts by score, reads existing sheet rows, dedupes by normalized website (and within the run), then keeps the top Max_lead NEW leads.",
+        "height": 96,
+        "width": 480
+      },
+      "id": "62d0f2a1-0d67-4f2d-90ab-77dd673351a8",
+      "name": "Sticky Note20",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -14832,
+        800
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Builds a human-readable text report of the ranked leads and emails it.",
+        "height": 96,
+        "width": 300
+      },
+      "id": "7aab0bc2-583b-4c76-9cd3-aba1e5dfed82",
+      "name": "Sticky Note21",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -14176,
+        800
+      ]
+    },
+    {
+      "parameters": {
+        "content": "LinkedIn-only companies skip the website fetch and go straight to signal check + decision-maker lookup.",
+        "height": 96,
+        "width": 220
+      },
+      "id": "9bf55bf6-c336-4334-85d3-106da0dec303",
+      "name": "Sticky Note22",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -15056,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Receives Apollo's async phone-reveal callback and writes the number into the Phone_lookup sheet (matched on Person ID). Verify the payload shape on the first real callback.",
+        "height": 96,
+        "width": 420
+      },
+      "id": "ca20e97a-22ce-412a-993d-f02c9e8a6678",
+      "name": "Sticky Note23",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -13056,
+        1000
+      ]
+    },
+    {
+      "parameters": {
+        "formTitle": "AI Automation Lead Finder",
+        "formDescription": "Real-time prospect discovery, decision makers & personalized outreach",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Business Type",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "City / Region",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Country",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Max_lead",
+              "fieldType": "number"
+            },
+            {
+              "fieldLabel": "Max Employees",
+              "fieldType": "number"
+            },
+            {
+              "fieldLabel": "Keywords"
+            },
+            {
+              "fieldLabel": "Market Segments",
+              "fieldType": "checkbox",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "B2B"
+                  },
+                  {
+                    "option": "B2C"
+                  },
+                  {
+                    "option": "B2B2C"
+                  },
+                  {
+                    "option": "E-commerce"
+                  },
+                  {
+                    "option": "Fintech"
+                  },
+                  {
+                    "option": "D2C"
+                  },
+                  {
+                    "option": "Non-Profit"
+                  },
+                  {
+                    "option": "SaaS"
+                  },
+                  {
+                    "option": "Consulting"
+                  },
+                  {
+                    "option": "Services"
+                  },
+                  {
+                    "option": "Retail"
+                  },
+                  {
+                    "option": "Healthcare Technology"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "Job Title",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "CEO"
+                  },
+                  {
+                    "option": "Founder"
+                  },
+                  {
+                    "option": "Co-Founder"
+                  },
+                  {
+                    "option": "COO"
+                  },
+                  {
+                    "option": "CTO"
+                  },
+                  {
+                    "option": "CMO"
+                  },
+                  {
+                    "option": "CFO"
+                  },
+                  {
+                    "option": "Managing Director"
+                  },
+                  {
+                    "option": "Director"
+                  },
+                  {
+                    "option": "VP of Operations"
+                  },
+                  {
+                    "option": "Head of Marketing"
+                  },
+                  {
+                    "option": "General Manager"
+                  },
+                  {
+                    "option": "Owner"
+                  },
+                  {
+                    "option": "Practice Manager"
+                  },
+                  {
+                    "option": "VP of Revenue Cycle"
+                  },
+                  {
+                    "option": "Chief Medical Officer"
+                  }
+                ]
+              },
+              "multiselect": true,
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Buying Signals",
+              "fieldType": "checkbox",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Recent Funding"
+                  },
+                  {
+                    "option": "Promoted Executives"
+                  },
+                  {
+                    "option": "New Client Signed"
+                  },
+                  {
+                    "option": "Partnerships"
+                  },
+                  {
+                    "option": "Office Expansion"
+                  },
+                  {
+                    "option": "Merger or Acquisition"
+                  },
+                  {
+                    "option": "Hiring Growth"
+                  },
+                  {
+                    "option": "Leadership Changes"
+                  },
+                  {
+                    "option": "Product Launches"
+                  },
+                  {
+                    "option": "Technology Adoption"
+                  },
+                  {
+                    "option": "Revenue Growth"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1e17698e-2c86-4f61-b37e-4876c8a87ea8",
+      "name": "Form Trigger1",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -17072,
+        16
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a1",
+              "name": "business_type",
+              "value": "={{ $json[\"Business Type\"] }}",
+              "type": "string"
+            },
+            {
+              "id": "a2",
+              "name": "location",
+              "value": "={{ $json['City / Region'] }}",
+              "type": "string"
+            },
+            {
+              "id": "a3",
+              "name": "country",
+              "value": "={{ $json.Country }}",
+              "type": "string"
+            },
+            {
+              "id": "a4",
+              "name": "Max_lead",
+              "value": "={{ $json.Max_lead || 10 }}",
+              "type": "number"
+            },
+            {
+              "id": "ab4",
+              "name": "Max_Employees",
+              "value": "={{ $json[\"Max Employees\"] }}",
+              "type": "number"
+            },
+            {
+              "id": "596a",
+              "name": "Keywords",
+              "value": "={{ $json.Keywords }}",
+              "type": "string"
+            },
+            {
+              "id": "c5b4",
+              "name": "Market_Segments",
+              "value": "={{ Array.isArray($json[\"Market Segments\"]) ? $json[\"Market Segments\"].join(',') : ($json[\"Market Segments\"] || '') }}",
+              "type": "string"
+            },
+            {
+              "id": "4fdb",
+              "name": "Job_Title",
+              "value": "={{ Array.isArray($json[\"Job Title\"]) ? $json[\"Job Title\"] : [$json[\"Job Title\"]] }}",
+              "type": "array"
+            },
+            {
+              "id": "sig1",
+              "name": "Selected_Signals",
+              "value": "={{ (Array.isArray($json['Buying Signals']) ? $json['Buying Signals'] : ($json['Buying Signals'] ? [$json['Buying Signals']] : [])).map(s => s.toLowerCase().replace(/ /g, '_')) }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "27315edb-5afa-4abb-a7a1-3689a844a463",
+      "name": "Prepare Input1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -16848,
+        16
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ $json.Selected_Signals.includes('recent_funding') }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "8e8d346b-e5b7-45fb-9877-a7ac770fa487",
+      "name": "Is Funding Selected?1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -16624,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ $json.Selected_Signals.includes('hiring_growth') }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "7c05d4ad-7a0e-486c-b7bf-115228e7d4a4",
+      "name": "Is Hiring Selected?1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -16624,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ (() => { const s = $json.Selected_Signals || []; const native = ['recent_funding','hiring_growth']; const hasNative = s.some(x => native.includes(x)); const hasText = s.some(x => !native.includes(x)); return hasText || !hasNative; })() }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "48cb699a-22c6-4b51-884a-4b4ebc52a315",
+      "name": "Base Pool Needed?1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -16624,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apollo.io/api/v1/mixed_companies/search",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Cache-Control",
+              "value": "no-cache"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n(() => {\n  const body = {\n    page: 1,\n    per_page: Math.min(100, ($json.Max_lead || 10) * 5),\n    organization_locations: [`${$json.location}, ${$json.country}`],\n    organization_num_employees_ranges: $json.Max_Employees ? [`1,${$json.Max_Employees}`] : undefined,\n    q_organization_keyword_tags: [\n      $json.business_type,\n      ...String($json.Keywords || '').split(',').map(s => s.trim())\n    ].filter(Boolean)\n  };\n  const d = new Date(); d.setMonth(d.getMonth() - 12); body.latest_funding_date_range = { min: d.toISOString().split('T')[0] };\n  return body;\n})()\n}}",
+        "options": {}
+      },
+      "id": "40a2dea3-01cf-4f26-8f04-dd3e4c3a4c27",
+      "name": "Apollo Search - Funding1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -16400,
+        -80
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_WITH_YOUR_CREDENTIAL",
+          "name": "httpHeaderAuth (configure in n8n)"
+        }
+      },
+      "continueOnFail": true,
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apollo.io/api/v1/mixed_companies/search",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Cache-Control",
+              "value": "no-cache"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n(() => {\n  const body = {\n    page: 1,\n    per_page: Math.min(100, ($json.Max_lead || 10) * 5),\n    organization_locations: [`${$json.location}, ${$json.country}`],\n    organization_num_employees_ranges: $json.Max_Employees ? [`1,${$json.Max_Employees}`] : undefined,\n    q_organization_keyword_tags: [\n      $json.business_type,\n      ...String($json.Keywords || '').split(',').map(s => s.trim())\n    ].filter(Boolean)\n  };\n  body.organization_num_jobs_range = { min: 1 };\n  return body;\n})()\n}}",
+        "options": {}
+      },
+      "id": "2878b0af-eeb5-4536-8bfe-9ee7fec5748b",
+      "name": "Apollo Search - Hiring1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -16400,
+        112
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_WITH_YOUR_CREDENTIAL",
+          "name": "httpHeaderAuth (configure in n8n)"
+        }
+      },
+      "continueOnFail": true,
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apollo.io/api/v1/mixed_companies/search",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Cache-Control",
+              "value": "no-cache"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n(() => {\n  const body = {\n    page: 1,\n    per_page: Math.min(100, ($json.Max_lead || 10) * 5),\n    organization_locations: [`${$json.location}, ${$json.country}`],\n    organization_num_employees_ranges: $json.Max_Employees ? [`1,${$json.Max_Employees}`] : undefined,\n    q_organization_keyword_tags: [\n      $json.business_type,\n      ...String($json.Keywords || '').split(',').map(s => s.trim())\n    ].filter(Boolean)\n  };\n  // no native signal param: fires only when neither Funding nor Hiring was the only selection\n  return body;\n})()\n}}",
+        "options": {}
+      },
+      "id": "d4fc1bfa-84af-43c1-a7d2-cbdef342d95f",
+      "name": "Apollo Search - Base1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -16400,
+        304
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_WITH_YOUR_CREDENTIAL",
+          "name": "httpHeaderAuth (configure in n8n)"
+        }
+      },
+      "continueOnFail": true,
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "t1",
+              "name": "_native_match",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "t2",
+              "name": "_source_branch",
+              "value": "recent_funding",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "211f8fc6-3398-4319-bd0d-7e7991e256f9",
+      "name": "Tag Funding Match1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -16176,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "t1",
+              "name": "_native_match",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "t2",
+              "name": "_source_branch",
+              "value": "hiring_growth",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "e9bfe50f-f491-473a-9517-b3a2220b8c39",
+      "name": "Tag Hiring Match1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -16176,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "t1",
+              "name": "_native_match",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "t2",
+              "name": "_source_branch",
+              "value": "base",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "54fa8c4c-da6f-43d1-aec9-8be62dc2d80f",
+      "name": "Tag Base NoMatch1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -16176,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "id": "31c31dd2-670c-473c-9c97-376fc9449e88",
+      "name": "Merge Apollo Branches1",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        -15952,
+        32
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Iterate every merged item (one raw Apollo response per branch that fired).\nconst inputItems = items;\n\nlet orgs = [];\nlet totalRawCount = 0;\nconst branchErrors = [];\nconst availableKeys = new Set();\n\nfor (const it of inputItems) {\n  const raw = it.json || {};\n  Object.keys(raw).forEach(k => availableKeys.add(k));\n  if (raw.error) {\n    branchErrors.push(`${raw._source_branch || 'unknown'}: ${typeof raw.error === 'string' ? raw.error : JSON.stringify(raw.error).slice(0, 300)}`);\n  }\n  const branchOrgs = [\n    ...(Array.isArray(raw.accounts)      ? raw.accounts      : []),\n    ...(Array.isArray(raw.organizations) ? raw.organizations : []),\n    ...(Array.isArray(raw.companies)     ? raw.companies     : []),\n    ...(Array.isArray(raw.results)       ? raw.results       : [])\n  ];\n  totalRawCount += branchOrgs.length;\n  for (const org of branchOrgs) {\n    org.__native_match  = raw._native_match  || false;\n    org.__source_branch = raw._source_branch || '';\n  }\n  orgs.push(...branchOrgs);\n  console.log(`[APOLLO] branch=${raw._source_branch || 'unknown'} native_match=${raw._native_match || false} orgs_in_branch=${branchOrgs.length}`);\n}\n\nif (orgs.length === 0) {\n  console.warn('[APOLLO] No organizations found across any branch.');\n  return [{\n    json: {\n      error: branchErrors.length\n        ? `Apollo request failed: ${branchErrors.join(' | ')}`\n        : 'Apollo returned no organizations',\n      branches_received: inputItems.length,\n      raw_response: JSON.stringify(inputItems[0]?.json || {}).slice(0, 1500),\n      available_keys: [...availableKeys].join(', ')\n    }\n  }];\n}\n\nconsole.log(`[APOLLO] Received ${totalRawCount} raw organization(s) across ${inputItems.length} branch(es).`);\n\nconst seen = new Set();\nconst noDomainOrgs = [];\n\nconst unique = orgs.filter(org => {\n  const domain = (\n    org.website_url ||\n    org.primary_domain ||\n    org.domain ||\n    ''\n  ).toLowerCase()\n    .replace(/^https?:\\/\\//, '')\n    .replace(/^www\\./, '')\n    .replace(/\\/$/, '')\n    .split('/')[0];\n\n  if (!domain) {\n    noDomainOrgs.push(org.name || org.organization_id || 'unknown');\n    return true; // keep it; Normalize & Filter Websites1 decides what to do with it\n  }\n  if (seen.has(domain)) return false;\n  seen.add(domain);\n  return true;\n});\n\nif (noDomainOrgs.length > 0) {\n  console.warn(`[APOLLO] ${noDomainOrgs.length} of ${orgs.length} orgs have NO website_url/primary_domain/domain from Apollo:`, JSON.stringify(noDomainOrgs));\n}\n\nconsole.log(`[APOLLO] After cross-branch dedup: ${unique.length} of ${orgs.length} orgs remain.`);\n\nconst mapped = unique.map(org => {\n  const website =\n    org.website_url ||\n    org.primary_domain ||\n    org.domain ||\n    '';\n\n  const rawDomain = website\n    .replace(/^https?:\\/\\//, '')\n    .replace(/^www\\./, '')\n    .replace(/\\/$/, '')\n    .split('/')[0];\n\n  const phone =\n    org.sanitized_phone ||\n    org.phone ||\n    org.primary_phone?.sanitized_number ||\n    org.primary_phone?.number ||\n    '';\n\n  const linkedin = org.linkedin_url || org.social_links?.linkedin || '';\n  const twitter  = org.twitter_url  || org.social_links?.twitter  || '';\n  const facebook = org.facebook_url || org.social_links?.facebook || '';\n\n  const technologies = Array.isArray(org.technology_names)\n    ? org.technology_names.join(', ')\n    : (org.technology_names || '');\n\n  const keywords = Array.isArray(org.keywords)\n    ? org.keywords.join(', ')\n    : (org.keywords || '');\n\n  return {\n    json: {\n      company:            org.name             || '',\n      website,\n      primary_domain:     rawDomain,\n      apollo_org_id:      org.organization_id  || org.id || '',\n      linkedin, phone, twitter, facebook,\n      logo_url:           org.logo_url         || '',\n      city:               org.city             || org.organization_city    || '',\n      state:              org.state            || org.organization_state   || '',\n      country:            org.country          || org.organization_country || '',\n      employee_count:     org.estimated_num_employees || org.employee_count || 0,\n      founded_year:       org.founded_year     || '',\n      industry:           org.industry         || org.primary_industry || '',\n      apollo_description: org.short_description || org.seo_description || org.description || '',\n      annual_revenue:     org.annual_revenue_printed || org.annual_revenue || org.organization_revenue_printed || '',\n      total_funding:      org.total_funding    || '',\n      funding_stage:      org.latest_funding_stage || '',\n      funding_date:       org.latest_funding_round_date || '',\n      technologies,\n      keywords,\n      apollo_native_match:   org.__native_match  || false,\n      matched_native_signal: org.__source_branch || ''\n    }\n  };\n});\n\nconsole.log(`[APOLLO] Passing ${mapped.length} deduplicated companies downstream (${mapped.filter(m => !m.json.website).length} with no website).`);\n\nreturn mapped;"
+      },
+      "id": "8d440abf-5cff-4523-a7a4-c7839503a65f",
+      "name": "Map & Deduplicate Companies1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -15728,
+        48
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "zeroCheck",
+              "leftValue": "={{ $json.error }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "5a8a371a-a87f-4906-b1a8-1dede91605d6",
+      "name": "Check Zero Results",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -15504,
+        48
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "team@example.com",
+        "subject": "=[ALERT] Lead Finder run returned ZERO companies — {{ $json.error }}",
+        "emailType": "text",
+        "message": "=The AI Automation Lead Finder workflow ran but Apollo Company Search returned no usable organizations for this run.\n\nError: {{ $json.error }}\nApollo raw response (truncated): {{ $json.raw_response }}\nAvailable response keys: {{ $json.available_keys }}\n\nCheck the Business Type / Location / Country inputs used for this run (they may not match Apollo's keyword tags), or whether Apollo credits are exhausted.",
+        "options": {}
+      },
+      "id": "fc8a5f60-c26d-4729-af4d-74a7a6c9626e",
+      "name": "Send Alert - No Leads Found",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -15280,
+        16
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "REPLACE_WITH_YOUR_CREDENTIAL",
+          "name": "gmailOAuth2 (configure in n8n)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const before = items.length;\n\nconst withWebsite = [];\nconst noWebsiteButHasLinkedIn = [];\nconst droppedEntirely = [];\n\nfor (const i of items) {\n  const site = i.json.website && String(i.json.website).trim();\n\n  if (site) {\n    let url = site;\n    if (!url.startsWith('http')) url = `https://${url}`;\n    url = url.replace(/\\/$/, '');\n    withWebsite.push({ json: { ...i.json, website: url } });\n    continue;\n  }\n\n  if (i.json.linkedin) {\n    // Kept and flagged. The Has Website? branch routes these past the website\n    // fetch so they are still scored and enriched via Apollo data.\n    noWebsiteButHasLinkedIn.push({\n      json: { ...i.json, website: '', no_website_reason: 'no_website_has_linkedin' }\n    });\n    continue;\n  }\n\n  droppedEntirely.push(i.json.company || 'unknown');\n}\n\nif (noWebsiteButHasLinkedIn.length > 0) {\n  console.warn(`[NO WEBSITE] ${noWebsiteButHasLinkedIn.length} of ${before} companies have no website but do have LinkedIn: flagged, not dropped:`,\n    JSON.stringify(noWebsiteButHasLinkedIn.map(i => i.json.company)));\n}\nif (droppedEntirely.length > 0) {\n  console.warn(`[DROPPED] ${droppedEntirely.length} of ${before} companies dropped entirely (no website AND no LinkedIn):`, JSON.stringify(droppedEntirely));\n}\n\nconsole.log(`[NORMALIZE] in=${before} | with_website=${withWebsite.length} | no_website_has_linkedin=${noWebsiteButHasLinkedIn.length} | dropped=${droppedEntirely.length}`);\n\nreturn [...withWebsite, ...noWebsiteButHasLinkedIn];"
+      },
+      "id": "5be9e717-02b2-4e0e-8a8a-256ad5bb1f7a",
+      "name": "Normalize & Filter Websites1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -15280,
+        576
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "8e5a3b1a-fec2-4f5a-b41e-64dbcba80a62",
+      "name": "Loop Over Items1",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -15056,
+        576
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "hasSite",
+              "leftValue": "={{ $json.website }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "244f6df2-db6f-4dab-a101-309eff35c347",
+      "name": "Has Website?1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -15056,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.website }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (compatible; LeadBot/1.0)"
+            }
+          ]
+        },
+        "options": {
+          "lowercaseHeaders": true,
+          "response": {
+            "response": {
+              "neverError": true,
+              "responseFormat": "text"
+            }
+          },
+          "timeout": 18000
+        }
+      },
+      "id": "2dd89bfd-0618-47b5-82b2-1d196be17998",
+      "name": "Fetch Website1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -14832,
+        112
+      ],
+      "retryOnFail": true,
+      "maxTries": 2,
+      "alwaysOutputData": true,
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "dead",
+              "leftValue": "={{ (() => {\n  const d = String($json.data || '');\n  const lower = d.toLowerCase();\n  const text = d.replace(/<script[\\s\\S]*?<\\/script>/gi, ' ').replace(/<style[\\s\\S]*?<\\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\\s+/g, ' ').trim();\n  const hardDead = ['website expired', 'this account has expired', 'domain for sale', 'this domain is for sale', 'buy this domain', 'domain is parked', 'parked domain', 'parked free'].some(k => lower.includes(k));\n  const softDead = /coming soon|under construction/.test(lower) && text.length < 1000;\n  return hardDead || softDead || d.length < 200;\n})() }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "7ffe7bf8-7585-4a05-ab2a-45de56f9087e",
+      "name": "Filter Dead Sites1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -14608,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const companyData = $('Loop Over Items1').item.json;\nconsole.log(`[SKIP] Dead/parked site skipped: ${companyData.company} (${companyData.website})`);\nreturn [{\n  json: {\n    ...companyData,\n    website_content:          '',\n    dm_name:                  '',\n    dm_title:                 '',\n    dm_email:                 '',\n    dm_linkedin:              '',\n    dm_phone:                 '',\n    all_contacts:             '[]',\n    contacts_found:           0,\n    business_summary:         'Website unavailable or parked',\n    target_customer:          '',\n    key_pain_points:          '',\n    automation_opportunities: '',\n    dm_personalized_email:    '',\n    industry:                 companyData.industry || '',\n    ai_readiness:             0,\n    automation_need:          0,\n    growth_signal:            0,\n    healthcare_signals:       {},\n    healthcare_fit_score:     0,\n    lead_score:               0,\n    skip:                     true\n  }\n}];"
+      },
+      "id": "68748eba-2e91-4ec7-9460-6becb66f08e3",
+      "name": "Skip Dead Site1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -14384,
+        48
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract structured signals (meta/OG/schema.org/H1-H2/careers/pricing/tech\n// fingerprints) from the raw HTML, then run the healthcare + buying-signal\n// keyword scans on CLEANED TEXT so script/nav markup can't cause false hits.\nconst companyData = $('Loop Over Items1').item.json;\nconst inputData = $('Prepare Input1').first().json;\nconst html = $json.data || '';\n\nfunction firstMatch(re) {\n  const m = html.match(re);\n  return m ? m[1].trim() : '';\n}\n\nconst title = firstMatch(/<title[^>]*>([\\s\\S]*?)<\\/title>/i);\nconst metaDescription = firstMatch(/<meta[^>]+name=[\"']description[\"'][^>]+content=[\"']([^\"']*)[\"']/i);\nconst ogTitle = firstMatch(/<meta[^>]+property=[\"']og:title[\"'][^>]+content=[\"']([^\"']*)[\"']/i);\nconst ogDescription = firstMatch(/<meta[^>]+property=[\"']og:description[\"'][^>]+content=[\"']([^\"']*)[\"']/i);\n\nconst h1s = [...html.matchAll(/<h1[^>]*>([\\s\\S]*?)<\\/h1>/gi)].map(m => m[1].replace(/<[^>]+>/g, ' ').replace(/\\s+/g, ' ').trim()).filter(Boolean).slice(0, 5);\nconst h2s = [...html.matchAll(/<h2[^>]*>([\\s\\S]*?)<\\/h2>/gi)].map(m => m[1].replace(/<[^>]+>/g, ' ').replace(/\\s+/g, ' ').trim()).filter(Boolean).slice(0, 8);\n\n// schema.org JSON-LD blocks\nlet schemaOrg = [];\ntry {\n  const ldBlocks = [...html.matchAll(/<script[^>]+type=[\"']application\\/ld\\+json[\"'][^>]*>([\\s\\S]*?)<\\/script>/gi)];\n  for (const b of ldBlocks) {\n    try { schemaOrg.push(JSON.parse(b[1].trim())); } catch (e) { /* skip malformed block */ }\n  }\n} catch (e) { /* no-op */ }\n\n// Nav-link based page presence checks\nconst hasCareers = /href=[\"'][^\"']*(careers|jobs|join-us|join-our-team)[^\"']*[\"']/i.test(html) || /we['’]?re hiring/i.test(html);\nconst hasPricing = /href=[\"'][^\"']*pricing[^\"']*[\"']/i.test(html);\nconst hasBlog    = /href=[\"'][^\"']*(blog|resources|insights)[^\"']*[\"']/i.test(html);\n\n// Embedded tool fingerprints (buying-signal for AI/automation/CRM readiness)\nconst techFingerprints = {\n  intercom:   /widget\\.intercom\\.io|Intercom\\(/i.test(html),\n  drift:      /js\\.driftt\\.com/i.test(html),\n  hubspot:    /js\\.hs-scripts\\.com|hubspot/i.test(html),\n  salesforce: /salesforce|force\\.com/i.test(html),\n  calendly:   /calendly\\.com/i.test(html),\n  zendesk:    /zendesk/i.test(html),\n  livechat:   /livechatinc\\.com/i.test(html)\n};\n\nconst copyrightYear = firstMatch(/©\\s*(\\d{4})/) || firstMatch(/copyright\\s*(\\d{4})/i);\n\n// ---- Cleaned text used for ALL keyword scans ----\nconst stripToText = s => s\n  .replace(/<script[\\s\\S]*?<\\/script>/gi, ' ')\n  .replace(/<style[\\s\\S]*?<\\/style>/gi, ' ')\n  .replace(/<!--[\\s\\S]*?-->/g, ' ')\n  .replace(/<[^>]+>/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\nconst lowerText = stripToText(html).toLowerCase();\n\n// Keyword matcher with word boundaries (so \"cro\" doesn't match \"across\",\n// \"series a\" doesn't match \"series and\", etc.)\nconst escapeRe = s => s.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&');\nconst kwRegex = k => new RegExp(\n  (/^\\w/.test(k) ? '(?<![a-z0-9])' : '') + escapeRe(k) + (/\\w$/.test(k) ? '(?![a-z0-9])' : '')\n);\nconst scan = categories => {\n  const out = {};\n  for (const [cat, kws] of Object.entries(categories)) {\n    const hits = kws.filter(k => kwRegex(k).test(lowerText));\n    out[cat] = { present: hits.length > 0, hit_count: hits.length, matched_keywords: hits };\n  }\n  return out;\n};\n\n// ---- Healthcare vertical buying-signal keyword scan ----\nconst HEALTHCARE_CATEGORIES = {\n  patient_acquisition:             ['patient acquisition', 'new patient', 'patient leads', 'grow your practice', 'patient marketing', 'patient referral', 'patient growth'],\n  patient_engagement:              ['patient engagement', 'patient portal', 'appointment reminder', 'patient communication', 'two-way texting', 'patient satisfaction', 'patient experience'],\n  practice_management:             ['practice management', 'pm system', 'scheduling software', 'medical billing software', 'front desk', 'practice management software'],\n  telehealth:                      ['telehealth', 'telemedicine', 'virtual visit', 'video consultation', 'remote care', 'virtual care'],\n  intelligent_provider_management: ['provider management', 'credentialing', 'provider scheduling', 'staff scheduling', 'provider network', 'locum tenens', 'provider onboarding'],\n  ehr:                             ['ehr', 'electronic health record', 'e-prescribing', 'ehr integration'],\n  revenue_cycle_management:        ['revenue cycle management', 'rcm', 'medical billing', 'claims processing', 'denial management', 'coding compliance', 'medical coding'],\n  clinical_trials:                 ['clinical trial', 'clinical research', 'trial recruitment', 'irb', 'protocol amendment', 'contract research organization', 'cro'],\n  emr_integrations:                ['emr integration', 'electronic medical record', 'hl7', 'fhir', 'interoperability', 'api integration']\n};\nconst healthcare_signals = scan(HEALTHCARE_CATEGORIES);\nconst healthcare_fit_score = Math.min(10, Object.values(healthcare_signals).filter(s => s.present).length * 2);\n\n// ---- 11 Buying-Intent Signals (keyword-based, no AI) ----\n// Generic phrases that fire on almost every marketing site (\"introducing\",\n// \"case study\", \"partners with\", \"powered by\", \"now available\") were removed.\nconst BUYING_SIGNAL_CATEGORIES = {\n  recent_funding:        ['raised $', 'series a', 'series b', 'series c', 'series d', 'funding round', 'secured funding', 'seed round', 'venture capital', 'investment round'],\n  promoted_executives:   ['promoted to', 'newly appointed', 'appoints new', 'welcomes new ceo', 'welcomes new cto', 'new chief', 'takes over as'],\n  new_client_signed:     ['new client', 'signed with', 'proud to announce', 'welcome our new client', 'client win', 'now serving'],\n  partnerships:          ['strategic partnership', 'in partnership with', 'announces partnership', 'joint venture', 'collaboration with', 'integration partner'],\n  office_expansion:      ['new office', 'expanding to', 'opens office', 'expansion into', 'relocated to', 'new headquarters', 'growing footprint'],\n  merger_or_acquisition: ['acquires', 'acquired by', 'merger', 'merged with', 'acquisition of', 'has acquired', 'to acquire'],\n  hiring_growth:         ['we are hiring', \"we're hiring\", 'we’re hiring', 'join our team', 'open positions', 'now hiring', 'career opportunities', 'growing team'],\n  leadership_changes:    ['joins as', 'steps down', 'new leadership', 'leadership transition', 'appointed as ceo', 'appointed as cto'],\n  product_launches:      ['launches new', 'new product', 'announcing the launch', 'unveils', 'proud to launch'],\n  technology_adoption:   ['now using', 'migrated to', 'implementation of', 'digital transformation'],\n  revenue_growth:        ['revenue growth', 'record revenue', 'year-over-year growth', 'increased revenue', 'grew revenue', 'strongest quarter', 'record year']\n};\nconst buying_signals = scan(BUYING_SIGNAL_CATEGORIES);\n\nconst signal_count = Object.values(buying_signals).filter(s => s.present).length;\nconst signal_summary = Object.entries(buying_signals)\n  .filter(([_, v]) => v.present)\n  .map(([k]) => k.replace(/_/g, ' '))\n  .join(', ') || 'None detected';\n\n// ---- Filter against user-selected signals ----\n// Native-capable signals (recent_funding, hiring_growth) were already filtered by\n// Apollo's own query parameters upstream; a company reaches here via a native\n// branch only if companyData.apollo_native_match is true. Every other selected\n// signal is matched by the text scan above.\nconst selectedSignals = Array.isArray(inputData.Selected_Signals) ? inputData.Selected_Signals : [];\nconst NATIVE_SIGNALS = ['recent_funding', 'hiring_growth'];\nconst selectedNative = selectedSignals.filter(s => NATIVE_SIGNALS.includes(s));\nconst selectedText = selectedSignals.filter(s => !NATIVE_SIGNALS.includes(s));\n\nlet matchedSignals = [];\nlet signal_match;\n\nif (selectedSignals.length === 0) {\n  signal_match = true;\n  matchedSignals = ['(no filter applied)'];\n} else {\n  const nativePass = selectedNative.length > 0 && companyData.apollo_native_match === true;\n  const textMatches = selectedText.filter(sig => buying_signals[sig] && buying_signals[sig].present);\n  matchedSignals = [\n    ...(nativePass ? [companyData.matched_native_signal || 'apollo_native'] : []),\n    ...textMatches\n  ];\n  signal_match = nativePass || textMatches.length > 0;\n}\n\nconsole.log(`[SIGNAL FILTER] company=${companyData.company} | selected=${JSON.stringify(selectedSignals)} | matched=${JSON.stringify(matchedSignals)} | pass=${signal_match}`);\n\n// ---- Flatten main content to plain text for the LLM ----\nconst mainMatch    = html.match(/<main[\\s\\S]*?<\\/main>/i);\nconst articleMatch = html.match(/<article[\\s\\S]*?<\\/article>/i);\nconst bodyMatch    = html.match(/<body[\\s\\S]*?<\\/body>/i);\n\nconst rawSection = (mainMatch && mainMatch[0])\n  || (articleMatch && articleMatch[0])\n  || (bodyMatch && bodyMatch[0])\n  || html;\n\nconst text = rawSection\n  .replace(/<script[\\s\\S]*?<\\/script>/gi, '')\n  .replace(/<style[\\s\\S]*?<\\/style>/gi, '')\n  .replace(/<!--[\\s\\S]*?-->/g, '')\n  .replace(/<nav[\\s\\S]*?<\\/nav>/gi, '')\n  .replace(/<header[\\s\\S]*?<\\/header>/gi, '')\n  .replace(/<footer[\\s\\S]*?<\\/footer>/gi, '')\n  .replace(/<[^>]+>/g, ' ')\n  .replace(/\\s+/g, ' ')\n  .trim();\n\nreturn [{\n  json: {\n    ...companyData,\n    website_content: text.substring(0, 8000),\n    page_title: title,\n    meta_description: metaDescription || ogDescription,\n    og_title: ogTitle,\n    h1_headings: h1s,\n    h2_headings: h2s,\n    schema_org: schemaOrg,\n    has_careers_page: hasCareers,\n    has_pricing_page: hasPricing,\n    has_blog: hasBlog,\n    tech_fingerprints: techFingerprints,\n    copyright_year: copyrightYear,\n    healthcare_signals,\n    healthcare_fit_score,\n    buying_signals,\n    signal_count,\n    signal_summary,\n    selected_signals: selectedSignals,\n    matched_signals: matchedSignals,\n    signal_match,\n    Job_Title: inputData.Job_Title\n  }\n}];"
+      },
+      "id": "97f602dc-9005-4be9-856b-3c2af922cc4b",
+      "name": "Clean Website Content1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -14384,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// LinkedIn-only company: nothing to scrape, so only Apollo-native signal\n// matches (funding / hiring) can qualify when signals are selected.\nconst company = $input.first().json;\nconst input = $('Prepare Input1').first().json;\n\nconst selected = Array.isArray(input.Selected_Signals) ? input.Selected_Signals : [];\nconst NATIVE = ['recent_funding', 'hiring_growth'];\nconst selectedNative = selected.filter(s => NATIVE.includes(s));\n\nlet signal_match;\nlet matched;\nif (selected.length === 0) {\n  signal_match = true;\n  matched = ['(no filter applied)'];\n} else {\n  signal_match = selectedNative.length > 0 && company.apollo_native_match === true;\n  matched = signal_match ? [company.matched_native_signal || 'apollo_native'] : [];\n}\n\nconsole.log(`[NO WEBSITE] ${company.company} | selected=${JSON.stringify(selected)} | pass=${signal_match}`);\n\nreturn [{\n  json: {\n    ...company,\n    website_content: '',\n    page_title: '',\n    meta_description: '',\n    og_title: '',\n    h1_headings: [],\n    h2_headings: [],\n    schema_org: [],\n    has_careers_page: false,\n    has_pricing_page: false,\n    has_blog: false,\n    tech_fingerprints: {},\n    copyright_year: '',\n    healthcare_signals: {},\n    healthcare_fit_score: 0,\n    buying_signals: {},\n    signal_count: 0,\n    signal_summary: 'None detected',\n    selected_signals: selected,\n    matched_signals: matched,\n    signal_match,\n    Job_Title: input.Job_Title\n  }\n}];"
+      },
+      "id": "747c053d-907a-4e0f-844c-6098c08b8dd5",
+      "name": "Prepare No-Website Lead",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -14608,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "sigMatch",
+              "leftValue": "={{ $json.signal_match }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "31557a90-8b3d-41cc-b820-61628d1f7444",
+      "name": "Has Matching Signal?1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -14160,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const companyData = $('Loop Over Items1').item.json;\nconsole.log(`[SKIP] No matching buying signal: ${companyData.company} (${companyData.website}) | wanted=${JSON.stringify($json.selected_signals)}`);\nreturn [{\n  json: {\n    ...companyData,\n    website_content: '',\n    dm_name: '', dm_title: '', dm_email: '', dm_linkedin: '', dm_phone: '',\n    all_contacts: '[]', contacts_found: 0,\n    business_summary: 'Skipped: no matching buying signal',\n    target_customer: '', key_pain_points: '', automation_opportunities: '',\n    dm_personalized_email: '',\n    industry: companyData.industry || '',\n    ai_readiness: 0, automation_need: 0, growth_signal: 0,\n    healthcare_signals: {}, healthcare_fit_score: 0,\n    lead_score: 0,\n    skip: true\n  }\n}];"
+      },
+      "id": "30d0c0e4-edea-4a8c-8b44-58e4e8cdee6c",
+      "name": "Skip - No Matching Signal1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -13936,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apollo.io/api/v1/mixed_people/api_search",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Cache-Control",
+              "value": "no-cache"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n(() => ({\n  per_page: 5,\n  page: 1,\n  organization_ids: [$json.apollo_org_id],\n  person_titles: Array.isArray($json.Job_Title)\n    ? $json.Job_Title\n    : [$json.Job_Title],\n  // Widened from [\"verified\"] only, which excluded legitimate decision-makers.\n  // Emails are revealed by the bulk_match step, not by this search.\n  contact_email_status: [\"verified\", \"unverified\", \"likely to engage\"]\n}))()\n}}",
+        "options": {}
+      },
+      "id": "426212b8-4706-4cfb-9f43-57831ecc38d4",
+      "name": "Apollo People Search1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -13936,
+        496
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_WITH_YOUR_CREDENTIAL",
+          "name": "httpHeaderAuth (configure in n8n)"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Read from the IF node so this works for BOTH the scraped-website path and the\n// LinkedIn-only path (Clean Website Content only runs on the first one).\nconst companyData = $('Has Matching Signal?1').first().json;\nconst people = $json.people || $json.contacts || $json.results || [];\n\nconsole.log(\n  `[DEBUG] company=${companyData.company} | domain=${companyData.primary_domain} | org_id=${companyData.apollo_org_id} | people_found=${people.length}`\n);\n\nconst topPerson = people[0] || null;\nconst allPeople = people.slice(0, 5);\n\nreturn [{\n  json: {\n    ...companyData,\n\n    _raw_people: JSON.stringify(allPeople),\n\n    _top_person_id: topPerson?.id || '',\n    _top_organization_id: topPerson?.organization_id || '',\n\n    _top_first_name: topPerson?.first_name || '',\n    _top_last_name: topPerson?.last_name || '',\n    _top_last_name_obfuscated: topPerson?.last_name_obfuscated || '',\n    _top_title: topPerson?.title || '',\n\n    _top_email: topPerson?.email || '',\n    _top_phone: topPerson?.sanitized_phone || topPerson?.phone || '',\n    _top_linkedin: topPerson?.linkedin_url || '',\n\n    _has_email: topPerson?.has_email || false,\n    _has_direct_phone: topPerson?.has_direct_phone || false,\n    _has_city: topPerson?.has_city || false,\n    _has_state: topPerson?.has_state || false,\n    _has_country: topPerson?.has_country || false,\n\n    _top_person_raw: JSON.stringify(topPerson),\n\n    _has_person: !!topPerson\n  }\n}];"
+      },
+      "id": "6dc3bf75-6a42-45b8-afde-3eac4736eee7",
+      "name": "Prep For Enrichment1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -13712,
+        496
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "hasPerson",
+              "leftValue": "={{ $json._has_person }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "f8f5706b-66fc-4061-be80-0716ce6921bc",
+      "name": "Has Person Found?1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -13488,
+        496
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    has_person:    $json._has_person      || false,\n    person_id:     $json._top_person_id   || '',\n    first_name:    $json._top_first_name  || '',\n    last_name:     $json._top_last_name   || '',\n\n    company:       $json.company          || '',\n    domain:        $json.primary_domain   || '',\n\n    _top_email:    $json._top_email       || '',\n    _top_phone:    $json._top_phone       || '',\n    _top_linkedin: $json._top_linkedin    || '',\n    _top_title:    $json._top_title       || '',\n    _raw_people:   $json._raw_people      || '[]',\n\n    ...Object.fromEntries(\n      Object.entries($json).filter(([k]) => !k.startsWith('_'))\n    )\n  }\n}];"
+      },
+      "id": "93f71565-c8cd-475b-a654-ec2aa7d528af",
+      "name": "Prepare Bulk-Match Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -13264,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apollo.io/api/v1/people/bulk_match",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Cache-Control",
+              "value": "no-cache"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  details: [Object.fromEntries(Object.entries({\n    id: $json.person_id,\n    first_name: $json.first_name,\n    last_name: $json.last_name,\n    organization_name: $json.company,\n    domain: $json.domain\n  }).filter(([k, v]) => v))],\n  reveal_personal_emails: true,\n  reveal_phone_number: true,\n  webhook_url: \"https://YOUR-N8N-HOST/webhook/apollo-phone-callback\"\n}) }}",
+        "options": {}
+      },
+      "id": "92877221-30d5-46a5-be78-b1367a18b8ef",
+      "name": "Enrich Person Email & Phone1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -13040,
+        496
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_WITH_YOUR_CREDENTIAL",
+          "name": "httpHeaderAuth (configure in n8n)"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_GOOGLE_SHEET_ID",
+          "mode": "list",
+          "cachedResultName": "lead_gen_final",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 549579992,
+          "mode": "list",
+          "cachedResultName": "Phone_lookup",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID/edit#gid=549579992"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Person ID": "={{ $json.person_id }}",
+            "Name": "={{ ($json.first_name + ' ' + $json.last_name).trim() }}",
+            "Company": "={{ $json.company }}",
+            "Title": "={{ $json._top_title }}",
+            "Email": "={{ $json._top_email }}",
+            "Phone Number": "={{ $json._top_phone }}",
+            "LinkedIn": "={{ $json._top_linkedin }}",
+            "Requested At": "={{ $now.toISO() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Person ID",
+              "displayName": "Person ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "LinkedIn",
+              "displayName": "LinkedIn",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Provisional Email",
+              "displayName": "Provisional Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Requested At",
+              "displayName": "Requested At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "a65778da-4854-41a3-a4a9-1e7bd254a789",
+      "name": "Log Phone Lookup",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -13040,
+        304
+      ],
+      "retryOnFail": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "REPLACE_WITH_YOUR_CREDENTIAL",
+          "name": "googleSheetsOAuth2Api (configure in n8n)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { ...$json, person: {} } }];"
+      },
+      "id": "d03f6369-0d17-4ba6-957e-0267a2f233b7",
+      "name": "No Person Passthrough1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -13040,
+        688
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const src = $('Prep For Enrichment1').first().json;\n\nlet enriched = {};\ntry {\n  const rawJson = $input.first().json || {};\n  enriched =\n    rawJson.person ||\n    (Array.isArray(rawJson.matches) ? rawJson.matches[0] : null) ||\n    {};\n} catch(e) {}\n\nconst emailStatus = enriched.email_status || '';\nconst creditIssue = ['credits_exhausted', 'unavailable'].includes(emailStatus);\n\nif (creditIssue) {\n  console.warn(`[CREDIT WARN] company=${src.company} email_status=${emailStatus}`);\n}\n\nconsole.log(`[ENRICH] company=${src.company} | enriched_email=${enriched.email || 'none'} | email_status=${emailStatus} | fallback_email=${src._top_email || 'none'}`);\n\nlet allPeopleRaw = [];\ntry { allPeopleRaw = JSON.parse(src._raw_people || '[]'); } catch(e) {}\n\nconst dm_name     = `${enriched.first_name || src._top_first_name || ''} ${enriched.last_name || src._top_last_name || ''}`.trim();\nconst dm_title    = enriched.title        || src._top_title    || '';\nconst dm_linkedin = enriched.linkedin_url || src._top_linkedin || '';\n\nconst dm_email =\n  (enriched.email && !['unavailable','credits_exhausted'].includes(emailStatus)\n    ? enriched.email : null) ||\n  src._top_email ||\n  '';\n\nconst dm_phone =\n  (enriched.phone_numbers?.length > 0\n    ? (enriched.phone_numbers.find(p => p.type === 'work')?.sanitized_number ||\n       enriched.phone_numbers[0]?.sanitized_number)\n    : null) ||\n  enriched.sanitized_phone ||\n  src._top_phone ||\n  src.phone ||\n  '';\n\nconst contacts = allPeopleRaw.map(p => ({\n  name:     `${p.first_name || ''} ${p.last_name || ''}`.trim(),\n  title:    p.title           || '',\n  email:    p.email           || '',\n  linkedin: p.linkedin_url    || '',\n  phone:    p.sanitized_phone || p.phone || ''\n}));\n\n// Capture person_id BEFORE destructuring strips it away\nconst dm_person_id = src._top_person_id || enriched.id || '';\n\nconst {\n  _raw_people, _top_person_id, _top_first_name,\n  _top_last_name, _top_title, _top_linkedin,\n  _top_email, _top_phone, _has_person,\n  _top_organization_id, _top_last_name_obfuscated,\n  _has_email, _has_direct_phone, _has_city,\n  _has_state, _has_country, _top_person_raw,\n  ...cleanCompany\n} = src;\n\nreturn [{\n  json: {\n    ...cleanCompany,\n    dm_name,\n    dm_title,\n    dm_email,\n    dm_linkedin,\n    dm_phone,\n    dm_person_id,\n    all_contacts:   JSON.stringify(contacts),\n    contacts_found: contacts.length\n  }\n}];"
+      },
+      "id": "c4707434-39de-4bd0-93b8-842e1c349713",
+      "name": "Merge People & Company1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -12816,
+        592
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Company: {{ $json.company }}\nIndustry: {{ $json.industry }}\nEmployees: {{ $json.employee_count }}\nLocation: {{ $json.city }}, {{ $json.country }}\nApollo Description: {{ $json.apollo_description }}\nDecision Maker: {{ $json.dm_name }} ({{ $json.dm_title }})\nTechnologies Used (Apollo): {{ $json.technologies }}\n\nPage Title: {{ $json.page_title }}\nMeta Description: {{ $json.meta_description }}\nH1 Headings: {{ JSON.stringify($json.h1_headings) }}\nH2 Headings: {{ JSON.stringify($json.h2_headings) }}\nHas Careers Page: {{ $json.has_careers_page }}\nHas Pricing Page: {{ $json.has_pricing_page }}\nHas Blog: {{ $json.has_blog }}\nEmbedded Tools Detected: {{ JSON.stringify($json.tech_fingerprints) }}\nHealthcare Keyword Signals: {{ JSON.stringify($json.healthcare_signals) }}\n\nWEBSITE_CONTENT_START\n{{ $json.website_content }}\nWEBSITE_CONTENT_END",
+        "options": {
+          "systemMessage": "=You are a senior B2B sales strategist and AI automation consultant.\n\nAnalyse the company information and website content provided.\n\nReturn ONLY a valid JSON object.\nDo NOT return markdown.\nDo NOT return explanations.\nDo NOT wrap in code blocks.\n\nSchema:\n{\n\"industry\": \"\",\n\"business_summary\": \"<2-3 sentence description of what the company does>\",\n\"target_customer\": \"\",\n\"automation_opportunities\": \"<3-5 highly relevant AI automation opportunities specific to this company>\",\n\"key_pain_points\": \"<specific operational bottlenecks, inefficiencies, customer service issues, lead management issues, manual processes, scheduling, reporting, data entry, follow-up gaps, etc.>\",\n\"personalized_message\": \"\",\n\"ai_readiness\": <integer 1-10>,\n\"automation_need\": <integer 1-10>,\n\"growth_signal\": <integer 1-10>\n}\n\nMessage Writing Rules:\nGenerate a single personalized outreach paragraph.\nDo NOT generate subject lines, greetings, sign-offs, or bullet points.\nThe message should start directly with an observation about the company, mention the company name naturally, reference at least one identified pain point and one automation opportunity.\nFocus on business outcomes: saving time, reducing costs, increasing revenue, improving response times, eliminating manual work.\nBe between 60 and 120 words. Sound professional and consultative.\nEnd naturally with: \"Would you be open to a quick 15-minute conversation next week?\"\nReturn the entire message as ONE continuous paragraph in the field: \"personalized_message\"\n\nScoring Guide:\nai_readiness: 1-3=little tech adoption, 4-7=modern tools, 8-10=highly tech-driven\nautomation_need: 1-3=limited opportunities, 4-7=moderate potential, 8-10=strong manual workflows\ngrowth_signal: 1-3=little evidence, 4-7=moderate indicators, 8-10=strong indicators\n\nIf website content is empty or fewer than 200 characters: set ai_readiness=3, automation_need=5, growth_signal=3 (neutral defaults, not punished to 1), and note insufficient website data in business_summary but still use Apollo description.\n\nReturn raw JSON only."
+        }
+      },
+      "id": "6d2b532d-d870-4ef1-b9b7-75605e3ba958",
+      "name": "AI Enrichment Agent1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -12592,
+        592
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5.6-terra",
+          "mode": "list",
+          "cachedResultName": "gpt-5.6-terra"
+        },
+        "builtInTools": {},
+        "options": {
+          "maxTokens": 2000
+        }
+      },
+      "id": "d64471cb-6521-4991-afea-721bdc56f6a0",
+      "name": "OpenAI Chat Model1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -12528,
+        816
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "REPLACE_WITH_YOUR_CREDENTIAL",
+          "name": "openAiApi (configure in n8n)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const src = $('Merge People & Company1').item.json;\n\nlet parsed = {};\nlet parseFailed = false;\ntry {\n  let raw = $json.output || '{}';\n  raw = raw.replace(/```json/gi, '').replace(/```/g, '').trim();\n  const match = raw.match(/\\{[\\s\\S]*\\}/);\n  if (match) raw = match[0];\n  raw = raw.replace(/,\\s*([}\\]])/g, '$1');\n  parsed = JSON.parse(raw);\n} catch (e) {\n  parseFailed = true;\n  console.warn(`[PARSE FAIL] company=${src.company} error=${e.message}`);\n  parsed = {\n    industry: src.industry || '',\n    business_summary: 'Could not parse AI response',\n    target_customer: '', automation_opportunities: '',\n    key_pain_points: '', personalized_message: '',\n    ai_readiness: 3, automation_need: 5, growth_signal: 3\n  };\n}\n\nreturn [{\n  json: {\n    company:                  src.company            || '',\n    website:                  src.website            || '',\n    linkedin:                 src.linkedin           || '',\n    phone:                    src.phone              || '',\n    twitter:                  src.twitter            || '',\n    facebook:                 src.facebook           || '',\n    logo_url:                 src.logo_url           || '',\n    city:                     src.city               || '',\n    state:                    src.state              || '',\n    country:                  src.country            || '',\n    employee_count:           src.employee_count     || 0,\n    founded_year:             src.founded_year       || '',\n    annual_revenue:           src.annual_revenue     || '',\n    total_funding:            src.total_funding      || '',\n    funding_stage:            src.funding_stage      || '',\n    funding_date:             src.funding_date       || '',\n    technologies:             src.technologies       || '',\n    keywords:                 src.keywords           || '',\n    apollo_description:       src.apollo_description || '',\n    dm_name:                  src.dm_name            || '',\n    dm_title:                 src.dm_title           || '',\n    dm_email:                 src.dm_email           || '',\n    dm_linkedin:              src.dm_linkedin        || '',\n    dm_phone:                 src.dm_phone           || '',\n    dm_person_id:             src.dm_person_id       || '',\n    all_contacts:             src.all_contacts       || '[]',\n    contacts_found:           src.contacts_found     || 0,\n    industry:                 parsed.industry                 || src.industry || '',\n    business_summary:         parsed.business_summary         || '',\n    target_customer:          parsed.target_customer          || '',\n    automation_opportunities: parsed.automation_opportunities || '',\n    key_pain_points:          parsed.key_pain_points          || '',\n    dm_personalized_email:    parsed.personalized_message     || '',\n    ai_readiness:             Number(parsed.ai_readiness   || 3),\n    automation_need:          Number(parsed.automation_need || 5),\n    growth_signal:            Number(parsed.growth_signal   || 3),\n    signal_count:             src.signal_count        || 0,\n    signal_summary:           src.signal_summary       || 'None detected',\n    healthcare_fit_score:     src.healthcare_fit_score || 0,\n    parse_failed:             parseFailed,\n    content_length:           (src.website_content || '').length\n  }\n}];"
+      },
+      "id": "ece14f99-f299-4da3-9c17-6753229b8421",
+      "name": "Parse AI Output1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -12240,
+        592
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const lead = $input.first().json;\n\nconst weights = {\n  company_fit: 0.18, technology: 0.18, intent_growth: 0.17,\n  website_quality: 0.17, contact_completeness: 0.18, funding: 0.12,\n  email_bonus: 8, phone_bonus: 5, revenue_bonus: 3\n};\n\nconst clamp10 = v => Math.min(10, Math.max(0, Number(v || 0)));\n\nconst ai     = clamp10(lead.ai_readiness);\nconst auto   = clamp10(lead.automation_need);\nconst growth = clamp10(lead.growth_signal);\nconst size   = Number(lead.employee_count || 0);\n\nlet sizeScore;\nif      (size > 500) sizeScore = 10;\nelse if (size > 100) sizeScore = 7;\nelse if (size > 20)  sizeScore = 5;\nelse if (size > 5)   sizeScore = 3;\nelse                 sizeScore = 1;\n\nconst contentLen = Number(lead.content_length || 0);\nconst contentQuality = contentLen > 2000 ? 1.0 : contentLen > 500 ? 0.85 : 0.7;\n\nconst techScore = String(lead.technologies || '').length > 0 ? 10 : 3;\n\n// Intent = LLM growth signal blended with how many buying signals were detected\nconst signalScore = Math.min(10, Number(lead.signal_count || 0) * 2);\nconst intentScore = growth * 0.6 + signalScore * 0.4;\n\nlet fundingScore = 0;\nif (lead.funding_stage) fundingScore += 6;\nif (lead.total_funding) fundingScore += 4;\nfundingScore = Math.min(10, fundingScore);\n\nlet contactScore = 0;\nif (lead.dm_email) contactScore += 5;\nif (lead.dm_phone) contactScore += 3;\nif (lead.dm_title) contactScore += 2;\ncontactScore = Math.min(10, contactScore);\n\nconst weightedScore =\n  (sizeScore           * weights.company_fit) +\n  (techScore           * weights.technology) +\n  (intentScore         * weights.intent_growth) +\n  ((auto * 0.5 + ai * 0.5) * weights.website_quality) +\n  (contactScore        * weights.contact_completeness) +\n  (fundingScore        * weights.funding);\n\nconst emailBonus   = lead.dm_email       ? weights.email_bonus   : 0;\nconst phoneBonus   = lead.dm_phone       ? weights.phone_bonus   : 0;\nconst revenueBonus = lead.annual_revenue ? weights.revenue_bonus : 0;\n\n// Healthcare fit only counts when the run targeted Healthcare Technology\nconst isHealthcareRun = /healthcare/i.test(String($('Prepare Input1').first().json.Market_Segments || ''));\nconst healthcareBonus = isHealthcareRun ? Math.round(clamp10(lead.healthcare_fit_score) * 0.5) : 0;\n\nconst raw_score  = Math.round(weightedScore * 10 * contentQuality);\nconst lead_score = Math.min(100, raw_score + emailBonus + phoneBonus + revenueBonus + healthcareBonus);\n\nreturn [{ json: { ...lead, lead_score, healthcare_bonus: healthcareBonus } }];"
+      },
+      "id": "82cb4198-b972-4886-b563-af51bf23c891",
+      "name": "Lead Scoring1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -12016,
+        864
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Drop skipped / scoreless leads, then rank by score (highest first).\nconst leads = $input.all()\n  .map(i => i.json)\n  .filter(j => j && !j.skip && Number(j.lead_score) > 0 && j.company);\n\nleads.sort((a, b) => Number(b.lead_score) - Number(a.lead_score));\n\nconsole.log(`[RANK] in=${$input.all().length} | qualified=${leads.length}`);\n\nreturn leads.map(j => ({ json: j }));"
+      },
+      "id": "7e3ee906-7429-47b2-8854-f32c71bb9447",
+      "name": "Filter & Rank Leads",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -14832,
+        688
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_GOOGLE_SHEET_ID",
+          "mode": "list",
+          "cachedResultName": "lead_gen_final",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID/edit#gid=0"
+        },
+        "options": {}
+      },
+      "id": "d654f23e-1f5c-4164-94c8-1ece016672bc",
+      "name": "Read Existing Leads",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -14608,
+        688
+      ],
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "retryOnFail": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "REPLACE_WITH_YOUR_CREDENTIAL",
+          "name": "googleSheetsOAuth2Api (configure in n8n)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Keep only leads that are NEW (not already in the sheet, not duplicated within\n// this run), then cap at Max_lead. Leads are already sorted by score.\nconst normKey = (website, company) => {\n  const w = String(website || '').toLowerCase().trim()\n    .replace(/^https?:\\/\\//, '')\n    .replace(/^www\\./, '')\n    .split(/[\\/?#]/)[0];\n  return w || ('co:' + String(company || '').toLowerCase().trim());\n};\n\nconst maxLead = Number($('Prepare Input1').first().json.Max_lead) || 10;\n\nconst existing = new Set();\nfor (const row of $input.all()) {\n  const j = row.json || {};\n  if (!j.Website && !j.Company) continue;   // empty item from an empty sheet\n  existing.add(normKey(j.Website, j.Company));\n}\n\nconst leads = $('Filter & Rank Leads').all().map(i => i.json);\n\nconst seen = new Set();\nconst fresh = [];\nlet dupes = 0;\nfor (const lead of leads) {\n  const k = normKey(lead.website, lead.company);\n  if (existing.has(k) || seen.has(k)) { dupes++; continue; }\n  seen.add(k);\n  fresh.push(lead);\n}\n\nconst limited = fresh.slice(0, maxLead);\nconsole.log(`[DEDUPE] ranked=${leads.length} | already_in_sheet_or_dupe=${dupes} | new=${fresh.length} | kept=${limited.length} (Max_lead=${maxLead})`);\n\nreturn limited.map(j => ({ json: j }));"
+      },
+      "id": "495a9a6d-e03f-4cfd-b182-c52c22029b56",
+      "name": "Dedupe & Limit",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -14384,
+        688
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_GOOGLE_SHEET_ID",
+          "mode": "list",
+          "cachedResultName": "lead_gen_final",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "run_date        ": "={{ $now.setZone('Asia/Kolkata').toFormat('dd LLL yyyy, hh:mm a') }}",
+            "Lead Score": "={{ $json.lead_score }}",
+            "Company": "={{ $json.company }}",
+            "Website": "={{ $json.website }}",
+            "LinkedIn": "={{ $json.linkedin }}",
+            "Founded Year": "={{ $json.founded_year }}",
+            "DM Name": "={{ $json.dm_name }}",
+            "DM Title": "={{ $json.dm_title }}",
+            "DM Email": "={{ $json.dm_email }}",
+            "DM LinkedIn": "={{ $json.dm_linkedin }}",
+            "DM Phone": "={{ $json.dm_phone }}",
+            "Business Summary": "={{ $json.business_summary }}",
+            "Target Customer": "={{ $json.target_customer }}",
+            "Automation Opportunities": "={{ $json.automation_opportunities }}",
+            "Key Pain Points": "={{ $json.key_pain_points }}",
+            "Personalized Email": "={{ $json.dm_personalized_email }}",
+            "Buying Signals": "={{ $json.signal_summary }}",
+            "Signal Count": "={{ $json.signal_count }}",
+            "Industry": "={{ $json.industry }}",
+            "Annual Revenue": "={{ $json.annual_revenue }}",
+            "Person ID": "={{ $json.dm_person_id }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "run_date        ",
+              "displayName": "run_date        ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Lead Score",
+              "displayName": "Lead Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Website",
+              "displayName": "Website",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "LinkedIn",
+              "displayName": "LinkedIn",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Founded Year",
+              "displayName": "Founded Year",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Industry",
+              "displayName": "Industry",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Annual Revenue",
+              "displayName": "Annual Revenue",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Person ID",
+              "displayName": "Person ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "DM Name",
+              "displayName": "DM Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "DM Email",
+              "displayName": "DM Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "DM Title",
+              "displayName": "DM Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "DM LinkedIn",
+              "displayName": "DM LinkedIn",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "DM Phone",
+              "displayName": "DM Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Business Summary",
+              "displayName": "Business Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Target Customer",
+              "displayName": "Target Customer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Automation Opportunities",
+              "displayName": "Automation Opportunities",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Key Pain Points",
+              "displayName": "Key Pain Points",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Personalized Email",
+              "displayName": "Personalized Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "lead_coverted",
+              "displayName": "lead_coverted",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Buying Signals",
+              "displayName": "Buying Signals",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Signal Count",
+              "displayName": "Signal Count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "86dc893d-5a05-4c00-b5f6-b078d6297bc1",
+      "name": "Append row in sheet1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -14160,
+        640
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "REPLACE_WITH_YOUR_CREDENTIAL",
+          "name": "googleSheetsOAuth2Api (configure in n8n)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const leads = $input.all().map(i => i.json);\nconst form = $('Prepare Input1').first().json;\n\nconst lines = [];\nlines.push(`AI Automation Lead Finder: ${leads.length} new lead(s)`);\nlines.push(`Search: ${form.business_type} | ${form.location}, ${form.country}`);\nlines.push('='.repeat(60));\nlines.push('');\n\nleads.forEach((l, idx) => {\n  lines.push(`#${idx + 1}  ${l.company}  |  Score ${l.lead_score}/100`);\n  lines.push(`   Website:         ${l.website || 'n/a (LinkedIn only)'}`);\n  lines.push(`   Decision maker:  ${l.dm_name || 'not found'}${l.dm_title ? ' (' + l.dm_title + ')' : ''}`);\n  lines.push(`   Email:           ${l.dm_email || 'n/a'}`);\n  lines.push(`   Phone:           ${l.dm_phone || 'n/a'}`);\n  lines.push(`   LinkedIn:        ${l.dm_linkedin || l.linkedin || 'n/a'}`);\n  lines.push(`   Buying signals:  ${l.signal_summary || 'None detected'}`);\n  lines.push(`   Summary:         ${l.business_summary || ''}`);\n  lines.push('');\n});\n\nreturn [{ json: { report: lines.join('\\n'), count: leads.length } }];"
+      },
+      "id": "f5167fd8-0a8a-453e-a57c-b6e3716bc9ae",
+      "name": "Build Report",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -14160,
+        832
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "team@example.com",
+        "subject": "=Lead Finder: {{ $json.count }} new lead(s) ({{ $now.setZone('Asia/Kolkata').toFormat('dd LLL yyyy') }})",
+        "emailType": "text",
+        "message": "={{ $json.report }}",
+        "options": {}
+      },
+      "id": "e690c6cf-fe48-4a7e-b0fb-1c3ab68c1afb",
+      "name": "Send Report",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -13936,
+        832
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "REPLACE_WITH_YOUR_CREDENTIAL",
+          "name": "gmailOAuth2 (configure in n8n)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "apollo-phone-callback",
+        "options": {}
+      },
+      "id": "20cf89c9-a501-45aa-809a-2e14fb21784d",
+      "name": "Apollo Phone Callback",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -13056,
+        1120
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Apollo posts { people: [{ id, status, phone_numbers: [...] }] } after a phone reveal.\nconst body = $input.first().json.body || {};\nconst people = Array.isArray(body.people) ? body.people : [];\n\nconst out = [];\nfor (const p of people) {\n  const nums = Array.isArray(p.phone_numbers) ? p.phone_numbers : [];\n  const best = nums.find(n => n.type === 'work') || nums[0];\n  const phone = best?.sanitized_number || best?.raw_number || '';\n  if (p.id && phone) out.push({ json: { person_id: p.id, phone } });\n}\n\nconsole.log(`[PHONE CALLBACK] people=${people.length} | with_phone=${out.length}`);\nreturn out;"
+      },
+      "id": "760ebe06-affa-4b59-af80-fc3037380dc4",
+      "name": "Parse Phone Callback",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -12832,
+        1120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_GOOGLE_SHEET_ID",
+          "mode": "list",
+          "cachedResultName": "lead_gen_final",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 549579992,
+          "mode": "list",
+          "cachedResultName": "Phone_lookup",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID/edit#gid=549579992"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Person ID": "={{ $json.person_id }}",
+            "Phone Number": "={{ $json.phone }}"
+          },
+          "matchingColumns": [
+            "Person ID"
+          ],
+          "schema": [
+            {
+              "id": "Person ID",
+              "displayName": "Person ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "LinkedIn",
+              "displayName": "LinkedIn",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Provisional Email",
+              "displayName": "Provisional Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Requested At",
+              "displayName": "Requested At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "cdc6b9b2-1256-4fdc-b551-f6e1e46f4c3e",
+      "name": "Update Phone Lookup",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -12608,
+        1120
+      ],
+      "retryOnFail": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "REPLACE_WITH_YOUR_CREDENTIAL",
+          "name": "googleSheetsOAuth2Api (configure in n8n)"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Form Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Prepare Input1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Input1": {
+      "main": [
+        [
+          {
+            "node": "Is Funding Selected?1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Is Hiring Selected?1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Base Pool Needed?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Funding Selected?1": {
+      "main": [
+        [
+          {
+            "node": "Apollo Search - Funding1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Hiring Selected?1": {
+      "main": [
+        [
+          {
+            "node": "Apollo Search - Hiring1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Base Pool Needed?1": {
+      "main": [
+        [
+          {
+            "node": "Apollo Search - Base1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apollo Search - Funding1": {
+      "main": [
+        [
+          {
+            "node": "Tag Funding Match1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apollo Search - Hiring1": {
+      "main": [
+        [
+          {
+            "node": "Tag Hiring Match1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apollo Search - Base1": {
+      "main": [
+        [
+          {
+            "node": "Tag Base NoMatch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tag Funding Match1": {
+      "main": [
+        [
+          {
+            "node": "Merge Apollo Branches1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tag Hiring Match1": {
+      "main": [
+        [
+          {
+            "node": "Merge Apollo Branches1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Tag Base NoMatch1": {
+      "main": [
+        [
+          {
+            "node": "Merge Apollo Branches1",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Merge Apollo Branches1": {
+      "main": [
+        [
+          {
+            "node": "Map & Deduplicate Companies1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Map & Deduplicate Companies1": {
+      "main": [
+        [
+          {
+            "node": "Check Zero Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Zero Results": {
+      "main": [
+        [
+          {
+            "node": "Send Alert - No Leads Found",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Normalize & Filter Websites1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize & Filter Websites1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [
+          {
+            "node": "Filter & Rank Leads",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Has Website?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Website?1": {
+      "main": [
+        [
+          {
+            "node": "Fetch Website1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare No-Website Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Website1": {
+      "main": [
+        [
+          {
+            "node": "Filter Dead Sites1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Dead Sites1": {
+      "main": [
+        [
+          {
+            "node": "Skip Dead Site1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Clean Website Content1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Skip Dead Site1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clean Website Content1": {
+      "main": [
+        [
+          {
+            "node": "Has Matching Signal?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare No-Website Lead": {
+      "main": [
+        [
+          {
+            "node": "Has Matching Signal?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Matching Signal?1": {
+      "main": [
+        [
+          {
+            "node": "Apollo People Search1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Skip - No Matching Signal1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Skip - No Matching Signal1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apollo People Search1": {
+      "main": [
+        [
+          {
+            "node": "Prep For Enrichment1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prep For Enrichment1": {
+      "main": [
+        [
+          {
+            "node": "Has Person Found?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Person Found?1": {
+      "main": [
+        [
+          {
+            "node": "Prepare Bulk-Match Payload",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Person Passthrough1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Bulk-Match Payload": {
+      "main": [
+        [
+          {
+            "node": "Enrich Person Email & Phone1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Log Phone Lookup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enrich Person Email & Phone1": {
+      "main": [
+        [
+          {
+            "node": "Merge People & Company1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "No Person Passthrough1": {
+      "main": [
+        [
+          {
+            "node": "Merge People & Company1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge People & Company1": {
+      "main": [
+        [
+          {
+            "node": "AI Enrichment Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Enrichment Agent1": {
+      "main": [
+        [
+          {
+            "node": "Parse AI Output1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse AI Output1": {
+      "main": [
+        [
+          {
+            "node": "Lead Scoring1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lead Scoring1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter & Rank Leads": {
+      "main": [
+        [
+          {
+            "node": "Read Existing Leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Existing Leads": {
+      "main": [
+        [
+          {
+            "node": "Dedupe & Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dedupe & Limit": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Build Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Report": {
+      "main": [
+        [
+          {
+            "node": "Send Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apollo Phone Callback": {
+      "main": [
+        [
+          {
+            "node": "Parse Phone Callback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Phone Callback": {
+      "main": [
+        [
+          {
+            "node": "Update Phone Lookup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Enrichment Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "active": false
+}
